@@ -65,8 +65,7 @@ function flatten(params) {
     for (let index = 0; index < params.length; index++) {
         const element = params[index];
         console.log(element);
-    }
-   
+    }   
 }
 flatten(1,[2, 3], 4, 5, [6, [7]])
 
@@ -109,8 +108,8 @@ let arrayWord = [];
             let newWord = element + array[index];
 
             if(newWord === mainWord){  
-                arrayWord.push(array[index] + ',' + array[j]);
-                arrayWord.push([index + ',' + j]);
+                arrayWord.push(array[j] + ',' + array[index]);
+                arrayWord.push([j + ',' + index]);
                 console.log(arrayWord)
             }
         }       
@@ -118,7 +117,7 @@ let arrayWord = [];
 }
 console.log('----------------- Ejercicio numero 3 -----------------')
 word(['top','main','tree','ally','fin','line'], "treetop")
-word(['bow','crystal','organic','ally','rain','line'], "organically")
+word(['top','main','tree','ally','fin','line'], "mainline")
 
 
 /*
