@@ -1,0 +1,27 @@
+{
+  "name": "cursocypressucreativa-bryan",
+  "version": "1.0.0",
+  "description": "Ucreativa Cypress Repo",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "./node_modules/.bin/cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bdgv11/CursoCypressUCreativa-Bryan.git"
+  },
+  "keywords": [
+    "ucreativa",
+    "bryan",
+    "repo"
+  ],
+  "author": "Bryan Guzman Valerin - bdgv11@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bdgv11/CursoCypressUCreativa-Bryan/issues"
+  },
+  "homepage": "https://github.com/bdgv11/CursoCypressUCreativa-Bryan#readme",
+  "dependencies": {
+    "cypress": "^8.5.0"
+  }
+}
