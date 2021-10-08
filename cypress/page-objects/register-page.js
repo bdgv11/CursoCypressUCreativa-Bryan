@@ -1,14 +1,12 @@
-<reference types="Cypress" />
-
-export const registerPage = new RegisterPage();
+/// <reference types="Cypress" />
 
 class RegisterPage{
 
-    url = '/register';
+    url = '/signup';
 
     elements = {
-        getFirstNameField: () => cy.get('[id="firstName"'),
-        getLastNameField: () => cy.get('[id="lastName"'),
+        getFirstNameField: () => cy.get('[name="firstName"]'),
+        getLastNameField: () => cy.get('[id="lastName"]'),
         getUserNameField: () => cy.get('[id="username"]'),
         getPasswordField: () => cy.get('[id="password"]'),
         getConfirmPassword: () => cy.get('[id="confirmPassword"]'),
@@ -20,6 +18,18 @@ class RegisterPage{
     visit(){
         cy.visit(this.url);
     }
+
+    typeForm({firstName = ' ', lastName = ' ', userName = ' ', password = ' ', confirmPassword = ' '} = {}){
+        this.elements.getFirstNameField().clear().type(firstName);
+        this.elements.getLastNameField().clear().type(lastName);
+        this.elements.getUserNameField().clear().type(userName);
+        this.elements.getPasswordField().clear().type(password);
+        this.elements.getConfirmPassword().clear().type(confirmPassword);
+    }
+
+    clickSignUpButton(){
+        this.elements.getSignUpButton().click();
+    }
 }
 
-export const registerPage = RegisterPage();
+export const registerPage = new RegisterPage();
