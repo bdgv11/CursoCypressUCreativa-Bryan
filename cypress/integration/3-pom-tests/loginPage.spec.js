@@ -13,12 +13,12 @@ describe('Login Page Tests', () => {
 
         it('should log in correctly', () => {
             loginPage.typeCredentials({
-                username: Cypress.env('shawnaUsername'),
-                password: Cypress.env('shawnaPassword')
+                username: Cypress.env('testNewUser'),
+                password: Cypress.env('testNewUserPassword')
             });
             loginPage.clickSignInButton();
             cy.url().should('include', '/')
-            cy.contains(Cypress.env('shawnaUsername')).should('be.visible');
+            cy.contains(Cypress.env('testNewUser')).should('be.visible');
         });
     })
 });
