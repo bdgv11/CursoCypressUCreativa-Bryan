@@ -3,6 +3,8 @@
 import { homePage } from "../../page-objects/home-page";
 import { loginPage } from "../../page-objects/login-page";
 import { bankAccount } from "../../page-objects/bankAccount-page";
+import { headerPage } from "../../page-objects/header-page";
+import { transactionPage } from "../../page-objects/transaction-page";
 
 describe('Home Page Test', () => {
     
@@ -28,16 +30,7 @@ describe('Home Page Test', () => {
             let accountNum = '123456789'
 
             homePage.clickBankAccountButton();
-
-            //Validate bank account title
-            //
-            //
-
             bankAccount.clickCreateBankAccountButton();
-
-            //Validate Create Bank Accouunt title
-            //
-            //
 
             bankAccount.typeNewBankAccount({
                 bankName: bank,
@@ -53,32 +46,69 @@ describe('Home Page Test', () => {
 
         it('should delete a bank account', () => {
 
-            let bank = 'BANCO NACIONAL DE CR';
-            let routingNum = '123456789';
-            let accountNum = '123456789';
+            let bank = 'BAC SAN JOSE';
 
             homePage.clickBankAccountButton();
 
-            //Validate bank account title
-            //
-            //
+            cy.get('[data-test^=bankaccount-list-item]')
+            .filter(`:contains("${bank}")`, { timeout: 10000 })
+            //.first()
+            .find('button')
+            .click({multiple : true});
 
-            bankAccount.clickCreateBankAccountButton();
+            cy.contains(`${bank}`+' (Deleted)').should('be.visible');
+        });
 
-            //Validate Create Bank Accouunt title
-            //
-            //
+        it('should complete a request transaction', () => {
 
-            bankAccount.typeNewBankAccount({
-                bankName: bank,
-                routingNumber: routingNum,
-                accountNumber: accountNum
+            let amount = 5;
+            let description = "Test Bryan"
+            
+            headerPage.clickNewTranxButton();
+
+            expect(true, transactionPage.titlesDisplayed()).to.be.true;
+
+            transactionPage.clickOnFirstUserAvailable();
+
+            transactionPage.typeAmountAndDesc({
+                amount: amount,
+                desc: description
             });
 
-            bankAccount.clickSaveNewAccount();
+            expect(true, transactionPage.buttonRequestEnabled()).to.be.true;
 
-            cy.contains('li',bank);
+            transactionPage.clickOnRequestButton();
 
+            transactionPage.elements.getTranxSubmitted().should('be.visible');
+
+            cy.contains('Requested $'+`${amount}`+'.00 for '+ `${description}`).should('be.visible');
+
+            //Requested $3.00 for TEST 1
+            //Paid $3.00 for Test Bryan
+        });
+
+        it('should complete a payment transaction', () => {
+            let amount = 5;
+            let description = "Test Bryan"
+            
+            headerPage.clickNewTranxButton();
+
+            expect(true, transactionPage.titlesDisplayed()).to.be.true;
+
+            transactionPage.clickOnFirstUserAvailable();
+
+            transactionPage.typeAmountAndDesc({
+                amount: amount,
+                desc: description
+            });
+
+            expect(true, transactionPage.buttonPayEnabled()).to.be.true;
+
+            transactionPage.clickOnPayButton();
+
+            transactionPage.elements.getTranxSubmitted().should('be.visible');
+
+            cy.contains('Paid $'+`${amount}`+'.00 for '+ `${description}`).should('be.visible');
         });
     });
 });
