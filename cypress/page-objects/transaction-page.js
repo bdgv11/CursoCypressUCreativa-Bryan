@@ -24,9 +24,9 @@ class Transaction {
     }
 
     titlesDisplayed(){
-        return this.elements.getCompleteTitle().should('be.visible') 
-        && this.elements.getSelectContactTitle().should('be.visible')
-        && this.elements.getPaymentTitle().should('be.visible') ;
+        return this.elements.getCompleteTitle()
+        && this.elements.getSelectContactTitle()
+        && this.elements.getPaymentTitle();
     }
 
     typeAmountAndDesc({amount = ' ', desc =' '} = {}){
@@ -35,11 +35,11 @@ class Transaction {
     }
 
     buttonRequestEnabled(){
-        return this.elements.getRequestButton().should('be.enabled');
+        return this.elements.getRequestButton();
     }
 
     buttonPayEnabled(){
-        return this.elements.getPayButton().should('be.enabled');
+        return this.elements.getPayButton();
     }
 
     clickOnRequestButton(){

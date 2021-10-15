@@ -21,7 +21,7 @@ describe('Home Page Test', () => {
             cy.url().should('include', '/')
             cy.contains(Cypress.env('shawnaUsername')).should('be.visible');
 
-        });
+        })
 
         it('should create a bank account', () => {  
 
@@ -42,7 +42,7 @@ describe('Home Page Test', () => {
 
             cy.contains('li',bank);
 
-        });
+        })
 
         it('should delete a bank account', () => {
 
@@ -57,7 +57,7 @@ describe('Home Page Test', () => {
             .click({multiple : true});
 
             cy.contains(`${bank}`+' (Deleted)').should('be.visible');
-        });
+        })
 
         it('should complete a request transaction', () => {
 
@@ -66,7 +66,7 @@ describe('Home Page Test', () => {
             
             headerPage.clickNewTranxButton();
 
-            expect(true, transactionPage.titlesDisplayed()).to.be.true;
+            transactionPage.titlesDisplayed().should('be.visible');
 
             transactionPage.clickOnFirstUserAvailable();
 
@@ -75,17 +75,17 @@ describe('Home Page Test', () => {
                 desc: description
             });
 
-            expect(true, transactionPage.buttonRequestEnabled()).to.be.true;
+            transactionPage.buttonRequestEnabled().should('be.enabled');
 
             transactionPage.clickOnRequestButton();
 
             transactionPage.elements.getTranxSubmitted().should('be.visible');
 
-            cy.contains('Requested $'+`${amount}`+'.00 for '+ `${description}`).should('be.visible');
+            cy.contains(`Requested $${amount}.00 for ${description}`).should('be.visible');
 
             //Requested $3.00 for TEST 1
             //Paid $3.00 for Test Bryan
-        });
+        })
 
         it('should complete a payment transaction', () => {
             let amount = 5;
@@ -93,7 +93,7 @@ describe('Home Page Test', () => {
             
             headerPage.clickNewTranxButton();
 
-            expect(true, transactionPage.titlesDisplayed()).to.be.true;
+            transactionPage.titlesDisplayed().should('be.visible');
 
             transactionPage.clickOnFirstUserAvailable();
 
@@ -102,13 +102,65 @@ describe('Home Page Test', () => {
                 desc: description
             });
 
-            expect(true, transactionPage.buttonPayEnabled()).to.be.true;
+            transactionPage.buttonPayEnabled().should('be.enabled');
 
             transactionPage.clickOnPayButton();
 
             transactionPage.elements.getTranxSubmitted().should('be.visible');
 
-            cy.contains('Paid $'+`${amount}`+'.00 for '+ `${description}`).should('be.visible');
-        });
-    });
-});
+            cy.contains(`Paid $${amount}.00 for ${description}`).should('be.visible');
+        })
+
+        it('should display a container list', () => {
+
+            homePage.getContainerTranxList().should('be.visible');
+
+            homePage.elements.getListTranx().should('have.length.greaterThan',0);
+
+            //getListTranx: () => cy.get('[data-test^=transaction-item')
+            cy.get(homePage.elements.getListTranx).each(($el) => {
+                cy.wrap($el).filter('div[class="MuiAvatar-root MuiAvatar-circular"]').should('be.visible');
+            })
+        })
+
+        it('should like the tranx', () => {
+
+            homePage.getContainerTranxList().should('be.visible');
+
+            homePage.elements.getListTranx().should('have.length.greaterThan',0);
+
+            homePage.elements.getListTranx().first().click();
+
+            homePage.elements.getTranxDetailTitle().should('be.visible');
+
+            homePage.clickOnLikeButton();
+
+            //homePage.elements.getLikesCount().should('have.value',1);
+
+            cy.contains(1).should('be.visible');
+
+        })
+
+        it('should type a comment inside a Tranx', () => {
+
+            let comment = 'This is a test comment'
+
+            homePage.getContainerTranxList().should('be.visible');
+
+            homePage.elements.getListTranx().should('have.length.greaterThan',0);
+
+            homePage.elements.getListTranx().first().click();
+
+            homePage.elements.getTranxDetailTitle().should('be.visible');
+
+            homePage.typeTranxComment({
+                comment:comment
+            });
+
+            homePage.typeReturnComment();
+
+            cy.contains(comment).should('be.visible');
+
+        })
+    })
+})
