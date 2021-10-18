@@ -9,36 +9,29 @@ Ejemplo:
 
 ['a','a','b','b','c','a','b','c'] --> [['a',2],['b',2],['c',1],['a',1],['b',1],['c',1]]
 */
-const array = ['a','a','b','b','c','a','b','c'];
-const reducer = (previousValue, currentValue) => (previousValue + ',' + currentValue);
 
-let previous = '';
-let contador = 0;
-let newArray = [];
-
-for (let index = 0; index < array.length; index++) {
-
-    if(array[0]){
-        previous= array[index];
-    }else{
-        previous = array[index-1];
-    }
-    const current = array[index];
-
-   //console.log('PREVIOUS: '+ previous + ' CURRENT: ' + current + ' ITERACION: ' +index + ' CONT: ' + contador)
-    
-    if(current === previous){
-        contador = contador +1;
-        newArray.push([current + ',' + contador]);
-    }else{
-        contador = 0;
-        newArray.push([current + ',' + contador]);
-    }
-    
-}
 console.log('----------------- Ejercicio numero 1 -----------------')
 console.log(newArray);
 
+
+function uniqC(...values) {
+    return getSubArrays(...values).map((subArray) => [...new Set(subArray), subArray.length]);
+  }
+  
+  function getSubArrays(...values) {
+    let start = 0;
+    let end = 0;
+    const subValues = [];
+    for (let index = 0; index < values.length; index++) {
+      if (values[index] === values[index + 1]) end++;
+      else {
+        subValues.push(values.slice(start, end + 1));
+        start = end + 1;
+        end = start;
+      }
+    }
+    return subValues;
+  }
 
 
 
@@ -59,15 +52,11 @@ flatten('a', ['b', 2], 3, null, [[4], ['c']]) // returns ['a', 'b', 2, 3, null, 
  */
 console.log('----------------- Ejercicio numero 2 -----------------')
 
-function flatten(params) {
-    //const array = [];
-    //array.push(params);
-    for (let index = 0; index < params.length; index++) {
-        const element = params[index];
-        console.log(element);
-    }   
-}
-flatten(1,[2, 3], 4, 5, [6, [7]])
+function flatten(values) {
+    return values.some(Array.isArray) ? flatten([...values.flat()]) : values;
+  }
+  console.log(flatten(1, [2, 3], 4, 5, [6, [7]]))
+  console.log(flatten(['a', ['b', 2], 3, null, [[4], ['c']]]));
 
 /*
 

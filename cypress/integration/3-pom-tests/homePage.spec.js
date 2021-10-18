@@ -116,28 +116,21 @@ describe('Home Page Test', () => {
             homePage.getContainerTranxList().should('be.visible');
 
             homePage.elements.getListTranx().should('have.length.greaterThan',0);
-
-            //getListTranx: () => cy.get('[data-test^=transaction-item')
-            cy.get(homePage.elements.getListTranx).each(($el) => {
-                cy.wrap($el).filter('div[class="MuiAvatar-root MuiAvatar-circular"]').should('be.visible');
-            })
         })
 
-        it('should like the tranx', () => {
+        it.only('should like the tranx', () => {
 
             homePage.getContainerTranxList().should('be.visible');
 
             homePage.elements.getListTranx().should('have.length.greaterThan',0);
 
-            homePage.elements.getListTranx().first().click();
+            homePage.elements.getListTranx().find('li').filter(':contains("0")').first().click();
 
             homePage.elements.getTranxDetailTitle().should('be.visible');
 
             homePage.clickOnLikeButton();
 
-            //homePage.elements.getLikesCount().should('have.value',1);
-
-            cy.contains(1).should('be.visible');
+            homePage.elements.getTranxLikesCountDetails().click().should('have.value',1);
 
         })
 

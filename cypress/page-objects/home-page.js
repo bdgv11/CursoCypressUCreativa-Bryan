@@ -16,11 +16,12 @@ class HomePage{
         
         //Tranx List
         getTranxContainer: () => cy.get('div[class="ReactVirtualized__Grid__innerScrollContainer"]'),
-        getListTranx: () => cy.get('[data-test^=transaction-item'),
+        getListTranx: () => cy.get('[data-test^=transaction-item]'),
         getTranxDetailTitle: () => cy.get('[data-test="transaction-detail-header"]'),
         getLikesCount: () => cy.get('[data-test^=transaction-like-count]'),
         getLikeButton: ()=> cy.get('[data-test^=transaction-like-button]'),
-        getInputCommentField: () => cy.get('[data-test^=transaction-comment-input]')
+        getInputCommentField: () => cy.get('[data-test^=transaction-comment-input]'),
+        getTranxLikesCountDetails: () => cy.get('[data-test^=transaction-like-count]')
     };    
 
     //Methods
