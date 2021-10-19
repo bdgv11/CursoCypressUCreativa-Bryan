@@ -1,39 +1,39 @@
 /// <reference types="Cypress" />
 
-class BankAccount{
+class BankAccount {
 
     url = '/bankaccounts';
 
     //Web Elements
     elements = {
-        getBankAccountTitle: () => cy.contains('h2.MuiTypography-root','Bank Accounts'),
-        getCreateBankAccountButton: () => cy.contains('span.MuiButton-label','Create'),        
-        
+        getBankAccountTitle: () => cy.contains('h2.MuiTypography-root', 'Bank Accounts'),
+        getCreateBankAccountButton: () => cy.contains('span.MuiButton-label', 'Create'),
+
         //Create Bank Account form
-        getCreateBankTitle: () => cy.get('h2.MuiTypography-root','Create Bank Account'),
+        getCreateBankTitle: () => cy.get('h2.MuiTypography-root', 'Create Bank Account'),
         getBankName: () => cy.get('[id="bankaccount-bankName-input"]'),
         getRoutingNumber: () => cy.get('[id="bankaccount-routingNumber-input"]'),
         getAccountNumber: () => cy.get('[id="bankaccount-accountNumber-input"]'),
-        getSaveAccountButton: () => cy.contains('span.MuiButton-label','Save')
+        getSaveAccountButton: () => cy.contains('span.MuiButton-label', 'Save')
     };
 
     //Methods
 
-    visit(){
+    visit() {
         cy.visit(this.url);
     }
 
-    clickCreateBankAccountButton(){
+    clickCreateBankAccountButton() {
         this.elements.getCreateBankAccountButton().click();
     }
 
-    typeNewBankAccount({bankName = ' ', routingNumber = ' ', accountNumber = ' '} = {}){
+    typeNewBankAccount({ bankName = ' ', routingNumber = ' ', accountNumber = ' ' } = {}) {
         this.elements.getBankName().clear().type(bankName);
         this.elements.getRoutingNumber().clear().type(routingNumber);
         this.elements.getAccountNumber().clear().type(accountNumber);
     }
 
-    clickSaveNewAccount(){
+    clickSaveNewAccount() {
         this.elements.getSaveAccountButton().click();
     }
 

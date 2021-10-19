@@ -23,5 +23,8 @@
   "homepage": "https://github.com/bdgv11/CursoCypressUCreativa-Bryan#readme",
   "dependencies": {
     "cypress": "^8.5.0"
+  },
+  "devDependencies": {
+    "mochawesome": "^6.3.1"
   }
 }

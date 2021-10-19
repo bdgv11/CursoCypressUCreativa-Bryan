@@ -7,7 +7,7 @@ import { headerPage } from "../../page-objects/header-page";
 import { transactionPage } from "../../page-objects/transaction-page";
 
 describe('Home Page Test', () => {
-    
+
     context('Home Page Tests - Project Test Cases', () => {
 
         beforeEach(() => {
@@ -23,7 +23,7 @@ describe('Home Page Test', () => {
 
         })
 
-        it('should create a bank account', () => {  
+        it('should create a bank account', () => {
 
             let bank = 'BAC SAN JOSE';
             let routingNum = '123456789';
@@ -40,7 +40,7 @@ describe('Home Page Test', () => {
 
             bankAccount.clickSaveNewAccount();
 
-            cy.contains('li',bank);
+            cy.contains('li', bank);
 
         })
 
@@ -51,19 +51,19 @@ describe('Home Page Test', () => {
             homePage.clickBankAccountButton();
 
             cy.get('[data-test^=bankaccount-list-item]')
-            .filter(`:contains("${bank}")`, { timeout: 10000 })
-            //.first()
-            .find('button')
-            .click({multiple : true});
+                .filter(`:contains("${bank}")`, { timeout: 10000 })
+                //.first()
+                .find('button')
+                .click({ multiple: true });
 
-            cy.contains(`${bank}`+' (Deleted)').should('be.visible');
+            cy.contains(`${bank}` + ' (Deleted)').should('be.visible');
         })
 
         it('should complete a request transaction', () => {
 
             let amount = 5;
             let description = "Test Bryan"
-            
+
             headerPage.clickNewTranxButton();
 
             transactionPage.titlesDisplayed().should('be.visible');
@@ -82,15 +82,12 @@ describe('Home Page Test', () => {
             transactionPage.elements.getTranxSubmitted().should('be.visible');
 
             cy.contains(`Requested $${amount}.00 for ${description}`).should('be.visible');
-
-            //Requested $3.00 for TEST 1
-            //Paid $3.00 for Test Bryan
         })
 
         it('should complete a payment transaction', () => {
             let amount = 5;
             let description = "Test Bryan"
-            
+
             headerPage.clickNewTranxButton();
 
             transactionPage.titlesDisplayed().should('be.visible');
@@ -115,22 +112,22 @@ describe('Home Page Test', () => {
 
             homePage.getContainerTranxList().should('be.visible');
 
-            homePage.elements.getListTranx().should('have.length.greaterThan',0);
+            homePage.elements.getListTranx().should('have.length.greaterThan', 0);
         })
 
-        it.only('should like the tranx', () => {
+        it('should like the tranx', () => {
 
             homePage.getContainerTranxList().should('be.visible');
 
-            homePage.elements.getListTranx().should('have.length.greaterThan',0);
+            homePage.elements.getListTranx().should('have.length.greaterThan', 0);
 
-            homePage.elements.getListTranx().find('li').filter(':contains("0")').first().click();
+            homePage.elements.getListTranx().filter(':contains("Request")').click({force:true});
 
             homePage.elements.getTranxDetailTitle().should('be.visible');
 
             homePage.clickOnLikeButton();
 
-            homePage.elements.getTranxLikesCountDetails().click().should('have.value',1);
+            homePage.elements.getLikeButton().should('be.disabled');           
 
         })
 
@@ -140,14 +137,14 @@ describe('Home Page Test', () => {
 
             homePage.getContainerTranxList().should('be.visible');
 
-            homePage.elements.getListTranx().should('have.length.greaterThan',0);
+            homePage.elements.getListTranx().should('have.length.greaterThan', 0);
 
-            homePage.elements.getListTranx().first().click();
+            homePage.elements.getListTranx().filter(':contains("Request")').click({force:true});
 
             homePage.elements.getTranxDetailTitle().should('be.visible');
 
             homePage.typeTranxComment({
-                comment:comment
+                comment: comment
             });
 
             homePage.typeReturnComment();

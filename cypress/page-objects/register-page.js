@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-class RegisterPage{
+class RegisterPage {
 
     url = '/signup';
 
@@ -10,16 +10,16 @@ class RegisterPage{
         getUserNameField: () => cy.get('[id="username"]'),
         getPasswordField: () => cy.get('[id="password"]'),
         getConfirmPassword: () => cy.get('[id="confirmPassword"]'),
-        getSignUpButton: () => cy.get('[data-test="signup-submit"]')        
+        getSignUpButton: () => cy.get('[data-test="signup-submit"]')
     };
 
     //Methods
 
-    visit(){
+    visit() {
         cy.visit(this.url);
     }
 
-    typeForm({firstName = ' ', lastName = ' ', userName = ' ', password = ' ', confirmPassword = ' '} = {}){
+    typeForm({ firstName = ' ', lastName = ' ', userName = ' ', password = ' ', confirmPassword = ' ' } = {}) {
         this.elements.getFirstNameField().clear().type(firstName);
         this.elements.getLastNameField().clear().type(lastName);
         this.elements.getUserNameField().clear().type(userName);
@@ -27,7 +27,7 @@ class RegisterPage{
         this.elements.getConfirmPassword().clear().type(confirmPassword);
     }
 
-    clickSignUpButton(){
+    clickSignUpButton() {
         this.elements.getSignUpButton().click();
     }
 }

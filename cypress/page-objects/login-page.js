@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-class LoginPage{
+class LoginPage {
 
     url = "signin";
 
@@ -12,16 +12,16 @@ class LoginPage{
     };
 
     //Methods
-    visit(){
+    visit() {
         cy.visit(this.url);
     }
 
-    typeCredentials({username = ' ', password = ' '} = {}){ //This parameters means will be ' ' (empty) as default... 
+    typeCredentials({ username = ' ', password = ' ' } = {}) { //This parameters means will be ' ' (empty) as default... 
         this.elements.getUserName().clear().type(username);
         this.elements.getPassword().clear().type(password);
     }
 
-    clickSignInButton(){
+    clickSignInButton() {
         this.elements.getSignInButton().click();
     }
 }

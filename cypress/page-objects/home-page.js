@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-class HomePage{
+class HomePage {
 
     url = '/'
 
@@ -8,72 +8,72 @@ class HomePage{
 
     elements = {
         getUserBalance: () => cy.get('[data-test="sidenav-user-balance"]'),
-        getHomeButton: () => cy.contains('div.MuiListItemText-root span.MuiTypography-root','Home'),
+        getHomeButton: () => cy.contains('div.MuiListItemText-root span.MuiTypography-root', 'Home'),
         getMyAccountButton: () => cy.contains('div.MuiListItemText-root span.MuiTypography-root', 'My Account'),
-        getBankAccountButton: () => cy.contains('div.MuiListItemText-root span.MuiTypography-root','Bank Accounts'),
-        getNotifications: () => cy.contains('div.MuiListItemText-root span.MuiTypography-root','Notifications'),
-        getLogoutButton: () => cy.contains('div.MuiListItemText-root span.MuiTypography-root','Logout'),
-        
+        getBankAccountButton: () => cy.contains('div.MuiListItemText-root span.MuiTypography-root', 'Bank Accounts'),
+        getNotifications: () => cy.contains('div.MuiListItemText-root span.MuiTypography-root', 'Notifications'),
+        getLogoutButton: () => cy.contains('div.MuiListItemText-root span.MuiTypography-root', 'Logout'),
+
         //Tranx List
         getTranxContainer: () => cy.get('div[class="ReactVirtualized__Grid__innerScrollContainer"]'),
         getListTranx: () => cy.get('[data-test^=transaction-item]'),
         getTranxDetailTitle: () => cy.get('[data-test="transaction-detail-header"]'),
         getLikesCount: () => cy.get('[data-test^=transaction-like-count]'),
-        getLikeButton: ()=> cy.get('[data-test^=transaction-like-button]'),
+        getLikeButton: () => cy.get('[data-test^=transaction-like-button]'),
         getInputCommentField: () => cy.get('[data-test^=transaction-comment-input]'),
         getTranxLikesCountDetails: () => cy.get('[data-test^=transaction-like-count]')
-    };    
+    };
 
     //Methods
 
-    visit(){
+    visit() {
         cy.visit(this.url);
     }
 
-    clickHomeButton(){
+    clickHomeButton() {
         this.elements.getHomeButton().click();
     }
 
-    clickMyAccountButton(){
+    clickMyAccountButton() {
         this.elements.getMyAccountButton().click();
     }
 
-    clickBankAccountButton(){
+    clickBankAccountButton() {
         this.elements.getBankAccountButton().click();
     }
 
-    clickNotificationButton(){
+    clickNotificationButton() {
         this.elements.getNotifications().click();
     }
 
-    clickLogout(){
+    clickLogout() {
         this.elements.clickLogout().click();
     }
 
     //Tranx List
-    getContainerTranxList(){
+    getContainerTranxList() {
         return this.elements.getTranxContainer();
     }
 
-    clickOnFirstListTranx(){
+    clickOnFirstListTranx() {
         this.elements.getListTranx().first().click();
     }
 
     //Tranx Details
 
-    clickOnLikeButton(){
+    clickOnLikeButton() {
 
-    if(this.elements.getLikeButton().should('be.enabled')){
+        if (this.elements.getLikeButton().should('be.enabled')) {
 
             this.elements.getLikeButton().click();
         }
     }
 
-    typeTranxComment({ comment = ' '} = { }){
+    typeTranxComment({ comment = ' ' } = {}) {
         this.elements.getInputCommentField().clear().type(comment);
     }
 
-    typeReturnComment(){
+    typeReturnComment() {
         this.elements.getInputCommentField().type('{enter}');
     }
 }

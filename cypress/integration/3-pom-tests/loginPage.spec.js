@@ -4,10 +4,10 @@
 import { loginPage } from "../../page-objects/login-page";
 
 describe('Login Page Tests', () => {
-    
+
     context('Login Page - Project Test Case', () => {
 
-        beforeEach(()=> {
+        beforeEach(() => {
             loginPage.visit();
         });
 
